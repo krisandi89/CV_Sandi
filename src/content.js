@@ -1,6 +1,6 @@
 /**
  * PERSONAL BRANDING & CONTENT CONFIGURATION
- * 
+ *
  * Edit this file to update your website content.
  * The site will automatically reflect changes here.
  */
@@ -8,18 +8,25 @@
 window.siteContent = {
     profile: {
         name: "Krisandi Saptyanto",
-        headline: "Innovative Software Engineer",
-        bio: "Specializing in high-performance web applications and premium digital experiences.",
+        headline: "Design and Project Manager",
+        image: "assets/images/profile.png",
+        bio: "Experienced Design and Project Manager with a demonstrated history of working in the civil engineering industry.",
         social: {
             linkedin: "https://www.linkedin.com/in/krisandi-saptyanto-50286276/",
             github: "#", // Add your GitHub
             email: "mailto:your.email@example.com"
         }
     },
+    about: {
+        title: "About Me",
+        text: `Experienced Design and Project Manager with a demonstrated history of working in the civil engineering industry. Skilled in geotechnical solution with geosynthetics material, Retaining Wall design by using MSE Wall, and ground stabilization with using TriAX Geogrid by Tensar International.
+
+Strong arts and design professional with a Bachelor of Engineering (BE) focused in Civil Engineering from Universitas Bina Nusantara (Binus).`
+    },
     hero: {
-        title: "Building",
-        subtitle: "the future technology",
-        description: "I craft robust, scalable, and aesthetically pleasing software solutions."
+        title: "Design & Project",
+        subtitle: "Manager",
+        description: "Experienced Design and Project Manager with a demonstrated history of working in the civil engineering industry."
     },
     topProjects: [
         {
