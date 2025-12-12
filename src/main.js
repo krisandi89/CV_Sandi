@@ -31,6 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailBtn = document.getElementById('contact-email');
     if (emailBtn) emailBtn.href = content.profile.social.email;
 
+    // WhatsApp Button
+    const heroBtn = document.getElementById('hero-contact-btn');
+    if (heroBtn && content.profile.social.whatsapp) {
+        heroBtn.href = content.profile.social.whatsapp;
+        heroBtn.target = "_blank";
+    }
+
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 

@@ -14,7 +14,8 @@ window.siteContent = {
         social: {
             linkedin: "https://www.linkedin.com/in/krisandi-saptyanto-50286276/",
             github: "#", // Add your GitHub
-            email: "mailto:your.email@example.com"
+            email: "mailto:your.email@example.com",
+            whatsapp: "https://wa.me/6282110128965"
         }
     },
     about: {
