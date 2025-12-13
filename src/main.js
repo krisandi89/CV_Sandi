@@ -49,12 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Modal Logic
+    // --- ACCESSIBLE MODAL LOGIC ---
     const modal = document.getElementById('project-modal');
-    const closeModal = document.getElementById('close-modal');
+    const modalContent = document.querySelector('.modal-content');
+    const closeModalBtn = document.getElementById('close-modal');
+    let lastActiveElement; // To store the element that opened the modal
 
     function openModal(project) {
         if (!modal) return;
+        lastActiveElement = document.activeElement; // Save focus
+
+        // Populate content
         document.getElementById('modal-image').src = project.image || '';
         document.getElementById('modal-category').textContent = project.category;
         document.getElementById('modal-title').textContent = project.title;
@@ -68,23 +73,53 @@ document.addEventListener('DOMContentLoaded', () => {
             linkBtn.style.display = 'none';
         }
 
+        // Show modal
         modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden';
+
+        // Focus management
+        closeModalBtn.focus();
+        modal.addEventListener('keydown', handleKeyDown);
     }
 
-    if (closeModal) {
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+    function closeModal() {
+        if (!modal) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        modal.removeEventListener('keydown', handleKeyDown);
+        if (lastActiveElement) {
+            lastActiveElement.focus(); // Restore focus
+        }
     }
 
-    // Close on background click
+    function handleKeyDown(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+
+        if (e.key === 'Tab') {
+            const focusableElements = modalContent.querySelectorAll('button, a[href]');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey && document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                closeModal();
             }
         });
     }
