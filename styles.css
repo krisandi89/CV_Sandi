@@ -417,6 +417,14 @@ h4 {
     font-size: 2rem;
     cursor: pointer;
     line-height: 1;
+    border-radius: 4px;
+    /* Add a transition for a smoother focus state */
+    transition: outline 0.2s ease;
+}
+
+.close-modal:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
 }
 
 .modal-img {
