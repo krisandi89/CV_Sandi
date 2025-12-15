@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modal Logic
     const modal = document.getElementById('project-modal');
-    const closeModal = document.getElementById('close-modal');
+    const closeModalBtn = document.getElementById('close-modal');
 
     function openModal(project) {
         if (!modal) return;
@@ -72,22 +72,34 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden'; // Prevent scrolling
     }
 
-    if (closeModal) {
-        closeModal.addEventListener('click', () => {
+    // A single, reusable function to close the modal for better maintainability.
+    function closeModal() {
+        if (modal) {
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
-        });
+        }
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
     }
 
     // Close on background click
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                closeModal();
             }
         });
     }
+
+    // Close on "Escape" key press, now using the reusable function.
+    document.addEventListener('keydown', (e) => {
+        // Modern browsers support `e.key` which is more readable than `keyCode`.
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
 
     // 3. Populate Timeline (Experience)
     const timelineContainer = document.getElementById('timeline-container');
