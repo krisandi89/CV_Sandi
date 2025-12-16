@@ -1,0 +1,3 @@
+## 2024-07-25 - Playwright Flakiness with CSS Transitions
+**Learning:** Playwright's visibility assertions can fail when elements have CSS transitions. The assertion checks for visibility immediately, but the element might still be visible while a fade-out or slide-out animation is in progress. This can cause flaky tests that fail intermittently.
+**Action:** When testing elements with CSS transitions, add a `page.wait_for_timeout()` after the action that triggers the transition. A timeout of 500-1000ms is usually sufficient to ensure the animation completes before the visibility assertion is made. This makes the test more robust and less prone to timing-related failures.
