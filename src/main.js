@@ -89,6 +89,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Close modal on escape key press
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('project-modal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    });
+
     // 3. Populate Timeline (Experience)
     const timelineContainer = document.getElementById('timeline-container');
     if (timelineContainer) {
