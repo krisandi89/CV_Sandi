@@ -1,0 +1,3 @@
+## 2024-07-25 - Modal Accessibility Pattern
+**Learning:** Found a common accessibility gap in modals. Icon-only close buttons are often inaccessible to screen readers, and modals frequently lack keyboard support for dismissal (e.g., the "Escape" key).
+**Action:** For any modal component, ensure the close button has a descriptive `aria-label` (e.g., "Close project details"). Also, implement a `keydown` event listener on the document to close the modal when the "Escape" key is pressed. Refactoring the close logic into a single, reusable function (`closeModalAction`) keeps the implementation clean and avoids code duplication.
