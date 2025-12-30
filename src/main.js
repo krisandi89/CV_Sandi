@@ -51,7 +51,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modal Logic
     const modal = document.getElementById('project-modal');
-    const closeModal = document.getElementById('close-modal');
+    const closeButton = document.getElementById('close-modal');
+
+    // Function to handle Escape key press
+    function handleKeyDown(e) {
+        if (e.key === 'Escape') {
+            closeModalAction();
+        }
+    }
+
+    // Centralized function to close the modal
+    function closeModalAction() {
+        if (!modal) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        document.removeEventListener('keydown', handleKeyDown); // Important: remove the listener
+    }
 
     function openModal(project) {
         if (!modal) return;
@@ -70,21 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.addEventListener('keydown', handleKeyDown); // Add listener for Escape key
     }
 
-    if (closeModal) {
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModalAction);
     }
 
     // Close on background click
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                closeModalAction();
             }
         });
     }
