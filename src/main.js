@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modal Logic
     const modal = document.getElementById('project-modal');
-    const closeModal = document.getElementById('close-modal');
+    const closeModalBtn = document.getElementById('close-modal');
 
     function openModal(project) {
         if (!modal) return;
@@ -72,22 +72,31 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden'; // Prevent scrolling
     }
 
-    if (closeModal) {
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+    function closeModalCleanup() {
+        if (!modal) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModalCleanup);
     }
 
     // Close on background click
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                closeModalCleanup();
             }
         });
     }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModalCleanup();
+        }
+    });
 
     // 3. Populate Timeline (Experience)
     const timelineContainer = document.getElementById('timeline-container');

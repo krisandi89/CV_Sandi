@@ -1,0 +1,3 @@
+## 2024-07-18 - Playwright Assertions for CSS Transitions
+**Learning:** When using Playwright to test elements that have CSS transitions (like the modal in this project), asserting visibility with `toBeVisible()` can be unreliable. The element might still be considered "visible" by Playwright even when it's visually hidden due to an opacity or transform transition. A more robust approach is to assert the presence or absence of a controlling class (e.g., `.active`) that dictates the element's state.
+**Action:** For future Playwright tests on elements with transitions, I will prioritize using `.toHaveClass()` to check for the presence or absence of the class that controls the element's visibility. This will lead to more reliable and less flaky tests.
