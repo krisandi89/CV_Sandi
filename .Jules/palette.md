@@ -1,0 +1,3 @@
+## 2024-07-25 - Robust Playwright Assertions for CSS Transitions
+**Learning:** When testing elements that use CSS transitions for appearing/disappearing (like a modal fading out), asserting visibility with `expect(locator).not_to_be_visible()` can be unreliable and lead to race conditions. The element might still be in the DOM and considered "visible" during its transition, even if it's visually gone.
+**Action:** A more robust approach is to assert the presence or absence of the controlling class. Instead of checking for visibility, I will use `expect(locator).not_to_have_class('active')` to verify the state change that triggers the transition. This directly tests the application's logic rather than a transient visual state.
