@@ -72,22 +72,32 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden'; // Prevent scrolling
     }
 
-    if (closeModal) {
-        closeModal.addEventListener('click', () => {
+    function closeAndResetModal() {
+        if (modal) {
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
-        });
+        }
+    }
+
+    if (closeModal) {
+        closeModal.addEventListener('click', closeAndResetModal);
     }
 
     // Close on background click
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                closeAndResetModal();
             }
         });
     }
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeAndResetModal();
+        }
+    });
 
     // 3. Populate Timeline (Experience)
     const timelineContainer = document.getElementById('timeline-container');
