@@ -89,6 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Close on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
     // 3. Populate Timeline (Experience)
     const timelineContainer = document.getElementById('timeline-container');
     if (timelineContainer) {
