@@ -22,10 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Populate Projects
     const projectsContainer = document.getElementById('projects-container');
+    let lastFocusedElement;
+
     if (projectsContainer) {
         content.topProjects.forEach(project => {
             const card = document.createElement('div');
             card.className = 'project-card';
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `View details for ${project.title}`);
 
             // Allow empty images to have a placeholder color
             const imgHTML = project.image
@@ -42,8 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Add click listener
+            // Listeners
             card.addEventListener('click', () => openModal(project));
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal(project);
+                }
+            });
 
             projectsContainer.appendChild(card);
         });
@@ -51,11 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modal Logic
     const modal = document.getElementById('project-modal');
-    const closeModal = document.getElementById('close-modal');
+    const closeModalBtn = document.getElementById('close-modal');
 
     function openModal(project) {
         if (!modal) return;
-        document.getElementById('modal-image').src = project.image || '';
+        lastFocusedElement = document.activeElement;
+
+        const modalImg = document.getElementById('modal-image');
+        modalImg.src = project.image || '';
+        modalImg.alt = project.title;
+
         document.getElementById('modal-category').textContent = project.category;
         document.getElementById('modal-title').textContent = project.title;
         document.getElementById('modal-desc').textContent = project.description;
@@ -69,25 +85,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden';
+
+        // Focus the close button for accessibility
+        if (closeModalBtn) setTimeout(() => closeModalBtn.focus(), 100);
     }
 
-    if (closeModal) {
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+    function closeModal() {
+        if (!modal) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        if (lastFocusedElement) lastFocusedElement.focus();
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
     }
 
     // Close on background click
     if (modal) {
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
+            if (e.target === modal) closeModal();
         });
     }
+
+    // Escape key to close
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
 
     // 3. Populate Timeline (Experience)
     const timelineContainer = document.getElementById('timeline-container');

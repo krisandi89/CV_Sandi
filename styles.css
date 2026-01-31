@@ -172,10 +172,12 @@ h4 {
     group: hover;
 }
 
-.project-card:hover {
+.project-card:hover,
+.project-card:focus-visible {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px -10px var(--accent-glow);
     border-color: var(--accent-primary);
+    outline: none;
 }
 
 .project-image {
