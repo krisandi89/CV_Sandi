@@ -1,0 +1,3 @@
+## 2025-05-14 - Modal Focus Management and Keyboard Navigation
+**Learning:** In static websites without a framework, manual focus management is crucial for accessibility. When opening a modal, focus must be explicitly moved to a focusable element inside the modal (like the close button) to prevent keyboard users from getting lost in the background. Restoring focus to the trigger element on close is equally important.
+**Action:** Always implement a `closeModal` function that restores focus to `document.activeElement` (captured before opening) and add an 'Escape' key listener for standard UX behavior.
