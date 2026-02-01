@@ -1,0 +1,3 @@
+# Ignore server logs and process IDs
+server.log
+server.pid

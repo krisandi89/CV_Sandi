@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krisandi Saptyanto | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Three.js (UMD Version for simpler local usage) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+    <!-- NAVIGATION (Simple) -->
+    <nav
+        style="position: absolute; top: 0; left: 0; width: 100%; padding: 2rem; z-index: 100; display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 800; font-size: 1.5rem; font-family: var(--font-heading);">KS.</div>
+        <div>
+            <a href="#about" style="margin-left: 2rem; font-weight: 500;">About</a>
+            <a href="#projects" style="margin-left: 2rem; font-weight: 500;">Projects</a>
+            <a href="#experience" style="margin-left: 2rem; font-weight: 500;">Experience</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="container">
+        <div class="hero-content">
+            <h2 style="color: var(--accent-primary); text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; margin-bottom: 1rem; font-weight: 600;"
+                id="hero-name"></h2>
+            <h1 class="heading-xl">
+                <span id="hero-title"></span><br>
+                <span id="hero-subtitle"
+                    style="color: var(--text-secondary); -webkit-text-fill-color: var(--text-secondary);"></span>
+            </h1>
+            <p id="hero-desc"
+                style="font-size: 1.25rem; color: var(--text-secondary); max-width: 500px; margin-top: 1.5rem;"></p>
+            <a href="#" class="contact-btn" id="hero-contact-btn">Let's Connect</a>
+        </div>
+        <div class="hero-visual">
+            <div id="canvas-container"></div>
+            <!-- Profile Image inserted via JS or static -->
+            <img id="hero-image" src="" alt="Profile Picture" class="hero-img-element">
+        </div>
+
+        <div class="scroll-indicator">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section container">
+        <h2 class="heading-lg" id="about-title">About Me</h2>
+        <div class="about-content">
+            <p id="about-text" style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; white-space: pre-line;"></p>
+        </div>
+    </section>
+
+    <!-- TOP PROJECTS SECTION -->
+    <section id="projects" class="section container">
+        <h2 class="heading-lg">Top Projects</h2>
+        <div class="projects-grid" id="projects-container">
+            <!-- Projects injected by JS -->
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" class="section container">
+        <h2 class="heading-lg">Project Experience</h2>
+        <div class="timeline-container" id="timeline-container">
+            <!-- Timeline injected by JS -->
+        </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <footer id="contact">
+        <h2 style="font-size: 2.5rem; color: white; margin-bottom: 2rem;">Ready to build something amazing?</h2>
+        <a href="mailto:email@example.com" class="contact-btn" id="contact-email">Get in Touch</a>
+        <div style="margin-top: 4rem; opacity: 0.5; font-size: 0.9rem;">
+            &copy; <span id="year"></span> Krisandi Saptyanto. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- MAIN SCRIPTS -->
+    <!-- Loaded sequentially -->
+    <script src="./src/content.js"></script>
+    <script src="./src/three-scene.js"></script>
+    <script src="./src/main.js"></script>
+
+    <!-- MODAL DOM -->
+    <div id="project-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal" aria-label="Close">&times;</button>
+            <img src="" alt="" id="modal-image" class="modal-img">
+            <div class="project-category" id="modal-category"></div>
+            <h2 class="heading-lg" id="modal-title" style="font-size: 2.5rem; margin-bottom: 1rem;"></h2>
+            <p id="modal-desc" style="color: #ccc; line-height: 1.8; font-size: 1.1rem;"></p>
+            <a href="#" id="modal-link" class="contact-btn" target="_blank" style="margin-top: 2rem;">View Project</a>
+        </div>
+    </div>
+</body>
+
+</html>
