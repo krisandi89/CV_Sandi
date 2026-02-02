@@ -1,0 +1,3 @@
+## 2025-05-14 - [Modal Accessibility & Keyboard Navigation]
+**Learning:** In vanilla JavaScript portfolios, interactive elements like project "cards" are often implemented as `div`s without keyboard accessibility. Simply adding `tabindex="0"` is not enough; one must also explicitly handle `Enter` and `Space` keys, and manage focus when opening/closing modals to prevent keyboard users from getting "lost" in the DOM.
+**Action:** Always check if `div` elements are used as buttons and ensure they have `role="button"`, `tabindex="0"`, and keyboard event listeners. Use focus management to trap focus in modals and restore it to the trigger element on close.
