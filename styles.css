@@ -434,3 +434,20 @@ footer {
     border-top: 1px solid var(--border-color);
     color: var(--text-secondary);
 }
+/* ACCESSIBILITY: Keyboard Focus Styles */
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+.project-card:focus-visible {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px -10px var(--accent-glow);
+    border-color: var(--accent-primary);
+    outline-offset: 8px;
+}
+
+.close-modal:focus-visible {
+    outline-offset: 0;
+}
