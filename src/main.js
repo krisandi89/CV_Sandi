@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
         content.topProjects.forEach(project => {
             const card = document.createElement('div');
             card.className = 'project-card';
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', `View details for ${project.title}`);
 
             // Allow empty images to have a placeholder color
             const imgHTML = project.image
@@ -43,7 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             // Add click listener
-            card.addEventListener('click', () => openModal(project));
+            card.addEventListener('click', () => openModal(project, card));
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal(project, card);
+                }
+            });
 
             projectsContainer.appendChild(card);
         });
@@ -53,8 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('project-modal');
     const closeModal = document.getElementById('close-modal');
 
-    function openModal(project) {
+    let lastFocusedElement = null;
+
+    function openModal(project, triggerElement) {
         if (!modal) return;
+        lastFocusedElement = triggerElement;
         document.getElementById('modal-image').src = project.image || '';
         document.getElementById('modal-category').textContent = project.category;
         document.getElementById('modal-title').textContent = project.title;
@@ -70,24 +82,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+        // Focus the close button after a short delay for the transition
+        setTimeout(() => {
+            if (closeModal) closeModal.focus();
+        }, 300);
+    }
+
+    function closeModalFunc() {
+        if (!modal) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        if (lastFocusedElement) lastFocusedElement.focus();
     }
 
     if (closeModal) {
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+        closeModal.addEventListener('click', closeModalFunc);
     }
 
     // Close on background click
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                closeModalFunc();
             }
         });
     }
+
+    // Escape key to close modal
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeModalFunc();
+        }
+    });
 
     // 3. Populate Timeline (Experience)
     const timelineContainer = document.getElementById('timeline-container');
