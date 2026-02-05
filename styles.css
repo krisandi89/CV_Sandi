@@ -6,6 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;400;500;700&display=swap');
 
 :root {
+    scroll-behavior: smooth;
     --bg-color: #050511;
     --bg-secondary: #0a0a1f;
     --text-primary: #ffffff;
@@ -433,4 +434,15 @@ footer {
     text-align: center;
     border-top: 1px solid var(--border-color);
     color: var(--text-secondary);
+}
+/* ACCESSIBILITY IMPROVEMENTS */
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+.project-card:focus-visible {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px -10px var(--accent-glow);
+    border-color: var(--accent-primary);
 }
