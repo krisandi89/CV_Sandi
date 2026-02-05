@@ -1,0 +1,3 @@
+## 2025-05-14 - Robust Modal Focus Management
+**Learning:** In vanilla JavaScript applications with CSS transitions, managing focus requires careful timing. Setting focus to an element inside a modal immediately after adding an 'active' class may fail if the element is not yet considered visible or interactable by the browser. Using the `transitionend` event is a more robust way to ensure the modal has finished its entry animation before moving focus. Additionally, always restore focus to the triggering element to maintain a logical tab flow for keyboard users.
+**Action:** Use `element.addEventListener('transitionend', ..., { once: true })` to handle focus transitions in modals, and always store `document.activeElement` before opening a dialog.
