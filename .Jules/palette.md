@@ -1,0 +1,3 @@
+## 2025-02-06 - Enhancing Modal Accessibility and Keyboard Navigation
+**Learning:** For a static site using vanilla JS, implementing robust modal accessibility (ARIA roles, focus management, Escape key) is a significant UX win. When project cards are implemented as non-interactive divs, they must be converted to keyboard-accessible buttons using role="button" and tabindex="0", along with Enter/Space key listeners.
+**Action:** Always ensure modals have role="dialog" and aria-modal="true", and that they restore focus to the trigger element upon closing. Use setAttribute for cross-browser compatibility of ARIA attributes.
