@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    let lastFocusedElement;
+
     // 1. Populate Hero
     document.getElementById('hero-name').textContent = content.profile.name;
     document.getElementById('hero-title').textContent = content.hero.title;
@@ -26,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         content.topProjects.forEach(project => {
             const card = document.createElement('div');
             card.className = 'project-card';
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', `View details for ${project.title}`);
 
             // Allow empty images to have a placeholder color
             const imgHTML = project.image
@@ -42,8 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Add click listener
+            // Add listeners
             card.addEventListener('click', () => openModal(project));
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal(project);
+                }
+            });
 
             projectsContainer.appendChild(card);
         });
@@ -55,6 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openModal(project) {
         if (!modal) return;
+        lastFocusedElement = document.activeElement;
+
         document.getElementById('modal-image').src = project.image || '';
         document.getElementById('modal-category').textContent = project.category;
         document.getElementById('modal-title').textContent = project.title;
@@ -70,24 +83,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+        // Move focus to modal (with a small delay for transition)
+        setTimeout(() => closeModal.focus(), 300);
+    }
+
+    function closeModalHandler() {
+        if (!modal) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        if (lastFocusedElement) lastFocusedElement.focus();
     }
 
     if (closeModal) {
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+        closeModal.addEventListener('click', closeModalHandler);
     }
 
     // Close on background click
     if (modal) {
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
+            if (e.target === modal) closeModalHandler();
         });
     }
+
+    // Escape key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeModalHandler();
+        }
+    });
 
     // 3. Populate Timeline (Experience)
     const timelineContainer = document.getElementById('timeline-container');
