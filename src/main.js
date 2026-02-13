@@ -13,9 +13,30 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('hero-subtitle').textContent = content.hero.subtitle;
     document.getElementById('hero-desc').textContent = content.hero.description;
 
+    // Profile Image
+    if (content.profile.image) {
+        const heroImg = document.getElementById('hero-image');
+        if (heroImg) heroImg.src = content.profile.image;
+    }
+
+    // Populate About
+    if (content.about) {
+        const aboutTitle = document.getElementById('about-title');
+        const aboutText = document.getElementById('about-text');
+        if (aboutTitle && content.about.title) aboutTitle.textContent = content.about.title;
+        if (aboutText && content.about.text) aboutText.textContent = content.about.text;
+    }
+
     // Contact Email
     const emailBtn = document.getElementById('contact-email');
     if (emailBtn) emailBtn.href = content.profile.social.email;
+
+    // WhatsApp Button
+    const heroBtn = document.getElementById('hero-contact-btn');
+    if (heroBtn && content.profile.social.whatsapp) {
+        heroBtn.href = content.profile.social.whatsapp;
+        heroBtn.target = "_blank";
+    }
 
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
